@@ -126,13 +126,11 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ text });
-  } catch {
+    } catch (error) {
+    console.error("AI API ERROR:", error);
+
     return NextResponse.json(
-      {
-        error:
-          "Maaf, AI Assistant sedang tidak dapat digunakan. Silakan coba lagi beberapa saat.",
-      },
+      { error: "Maaf, AI Assistant sedang tidak dapat digunakan. Silakan coba lagi beberapa saat." },
       { status: 500 }
     );
   }
-}
