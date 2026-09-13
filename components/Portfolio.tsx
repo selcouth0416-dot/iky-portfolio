@@ -12,258 +12,232 @@ import {
 } from "lucide-react";
 
 const experience = [
-  ["2026", "AI Engineer", "Building practical AI-powered solutions."],
-  ["2024 — Now", "Truck Driver", "Commercial driving with safety and discipline."],
-  ["2023 — 2024", "Welding", "Hands-on welding and fabrication experience."],
+  {
+    year: "2026",
+    title: "AI Engineer",
+    text: "Building AI-powered applications and exploring modern artificial intelligence technologies.",
+  },
+  {
+    year: "2024 — Sekarang",
+    title: "Driver Truk",
+    text: "Professional truck driving with focus on safety, responsibility, time management, and vehicle care.",
+  },
+  {
+    year: "2023 — 2024",
+    title: "Pengelasan",
+    text: "Experience in welding work with attention to precision, safety, and practical problem solving.",
+  },
 ];
 
-const stack = [
-  ["React", "Frontend"],
-  ["Next.js", "Frontend"],
-  ["Tailwind CSS", "Frontend"],
-  ["TypeScript", "Frontend"],
-  ["Node.js", "Backend"],
-  ["Express.js", "Backend"],
-  ["MySQL", "Database"],
-  ["MongoDB", "Database"],
+const technologies = [
+  { name: "React", type: "Frontend", symbol: "R" },
+  { name: "Next.js", type: "Frontend", symbol: "N" },
+  { name: "Tailwind CSS", type: "Frontend", symbol: "T" },
+  { name: "TypeScript", type: "Frontend", symbol: "TS" },
+  { name: "Node.js", type: "Backend", symbol: "N" },
+  { name: "Express.js", type: "Backend", symbol: "E" },
+  { name: "MySQL", type: "Database", symbol: "M" },
+  { name: "MongoDB", type: "Database", symbol: "M" },
 ];
 
 const works = [
-  ["AI Engineer", "/assets/projects/ai-engineer.jpg"],
-  ["Truck Driver", "/assets/projects/truck-driver.jpg"],
-  ["Welding", "/assets/projects/welding.jpg"],
+  {
+    title: "AI Engineer",
+    category: "Artificial Intelligence",
+    image: "/assets/projects/ai-engineer.jpg",
+  },
+  {
+    title: "Driver Truk",
+    category: "Professional Experience",
+    image: "/assets/projects/truck-driver.jpg",
+  },
+  {
+    title: "Pengelasan",
+    category: "Technical Experience",
+    image: "/assets/projects/welding.jpg",
+  },
 ];
+
+const routines = [
+  ["Morning", "Gym & Start the Day"],
+  ["Day", "Work & Build"],
+  ["Evening", "Learning & Reading"],
+  ["Night", "Relax & Reset"],
+];
+
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+};
 
 export default function Portfolio() {
   const [aiOpen, setAiOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hi! I'm Iky Assistant. Ask me anything about Iky.",
+      content:
+        "Halo! Saya Iky Assistant. Ada yang ingin kamu ketahui tentang Iky?",
     },
   ]);
 
-  async function askAI() {
-    if (!input.trim() || loading) return;
+  async function sendMessage() {
+    const text = input.trim();
+    if (!text || loading) return;
 
-    const userText = input.trim();
-
-    const newMessages = [
+    const nextMessages: Message[] = [
       ...messages,
-      { role: "user", content: userText },
+      { role: "user", content: text },
     ];
 
-    setMessages(newMessages);
+    setMessages(nextMessages);
     setInput("");
     setLoading(true);
 
     try {
-      const res = await fetch("/api/chat", {
+      const response = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: newMessages,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: nextMessages }),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
       setMessages([
-        ...newMessages,
+        ...nextMessages,
         {
           role: "assistant",
           content:
             data.text ||
-            "Maaf, AI Assistant sedang mengalami kendala.",
+            "Maaf, saya sedang mengalami kendala. Coba beberapa saat lagi.",
         },
       ]);
     } catch {
       setMessages([
-        ...newMessages,
+        ...nextMessages,
         {
           role: "assistant",
-          content: "Maaf, coba lagi beberapa saat.",
+          content: "Maaf, AI Assistant sedang tidak dapat digunakan.",
         },
       ]);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
-    <main className="min-h-screen bg-[#fafafa] text-[#111]">
-
+    <main className="portfolio">
       {/* NAVBAR */}
-      <header className="fixed left-1/2 top-5 z-50 w-[92%] max-w-5xl -translate-x-1/2">
-        <nav className="flex items-center justify-between rounded-full border border-black/10 bg-white/85 px-5 py-3 shadow-lg shadow-black/5 backdrop-blur-xl">
-          <a
-            href="#home"
-            className="text-xl font-bold tracking-tight"
-          >
-            Iky.
-          </a>
+      <nav className="floating-nav">
+        <a href="#home" className="nav-logo">
+          Iky<span>.</span>
+        </a>
 
-          <div className="hidden items-center gap-7 text-sm text-black/60 md:flex">
-            <a href="#about" className="transition hover:text-black">
-              About
-            </a>
-            <a href="#experience" className="transition hover:text-black">
-              Experience
-            </a>
-            <a href="#stack" className="transition hover:text-black">
-              Stack
-            </a>
-            <a href="#work" className="transition hover:text-black">
-              Work
-            </a>
-            <a href="#contact" className="transition hover:text-black">
-              Contact
-            </a>
-          </div>
+        <div className="nav-links">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#stack">Stack</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </div>
 
-          <button
-            onClick={() => setAiOpen(true)}
-            className="rounded-full bg-black px-5 py-2 text-sm text-white transition hover:scale-105"
-          >
-            Ask AI
-          </button>
-        </nav>
-      </header>
+        <a href="#contact" className="nav-contact">
+          Let&apos;s Talk <ArrowUpRight size={15} />
+        </a>
+      </nav>
 
       {/* HERO */}
-      <section
-        id="home"
-        className="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 pt-28"
-      >
-        <div className="grid items-center gap-16 md:grid-cols-[1.15fr_.85fr]">
+      <section id="home" className="hero-section">
+        <div className="hero-copy">
+          <p className="eyebrow">PORTFOLIO · 2026</p>
 
-          <div>
-            <p className="mb-5 text-xs font-medium uppercase tracking-[.3em] text-black/40">
-              Hello, I'm
-            </p>
+          <h1>
+            Turning
+            <br />
+            ideas into
+            <br />
+            <span>reality.</span>
+          </h1>
 
-            <h1 className="text-7xl font-bold tracking-[-.07em] sm:text-8xl md:text-[9rem]">
-              Iky
-            </h1>
+          <p className="hero-description">
+            AI Engineer, truck driver, and lifelong learner. I enjoy building
+            things, learning new technology, and turning ideas into something
+            real.
+          </p>
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-black/50">
-              AI Engineer with a practical mindset. I enjoy technology,
-              learning new things, and turning ideas into something real.
-            </p>
+          <div className="hero-actions">
+            <a href="#work" className="primary-button">
+              Explore my work <ArrowDown size={17} />
+            </a>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#contact"
-                className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:scale-105"
-              >
-                Let&apos;s Talk
-              </a>
+            <a href="#contact" className="secondary-button">
+              Get in touch <ArrowUpRight size={17} />
+            </a>
+          </div>
+        </div>
 
-              <a
-                href="#about"
-                className="flex items-center gap-2 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-medium"
-              >
-                Explore
-                <ArrowDown size={15} />
-              </a>
-            </div>
+        <div className="hero-visual">
+          <div className="hero-image-wrap">
+            <img
+              src="/assets/profile/profile.jpg"
+              alt="Iky"
+              className="hero-image"
+            />
+          </div>
 
-            <div className="mt-8 flex items-center gap-5 text-black/50">
-              <a
-                href="https://www.instagram.com/calmessence__/"
-                target="_blank"
-                rel="noreferrer"
-                className="transition hover:text-black"
-              >
-                <Instagram size={19} />
-              </a>
-
-              <a
-                href="https://www.tiktok.com/@usrnotfound32"
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm font-semibold transition hover:text-black"
-              >
-                TikTok
-              </a>
-
-              <a
-                href="https://www.facebook.com/share/1DgK4XQaC2/"
-                target="_blank"
-                rel="noreferrer"
-                className="transition hover:text-black"
-              >
-                <Facebook size={19} />
-              </a>
+          <div className="hero-floating-card">
+            <span className="status-dot" />
+            <div>
+              <strong>Available</strong>
+              <small>for new opportunities</small>
             </div>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[390px]">
-            <div className="overflow-hidden rounded-[2.5rem] bg-neutral-200 shadow-2xl">
-              <img
-                src="/assets/profile/profile.jpg"
-                alt="Iky"
-                className="aspect-[4/5] h-full w-full object-cover"
-              />
-            </div>
-
-            <div className="absolute -bottom-5 -left-5 rounded-2xl border border-black/10 bg-white px-5 py-4 shadow-xl">
-              <p className="text-[10px] uppercase tracking-widest text-black/40">
-                Currently
-              </p>
-              <p className="mt-1 text-sm font-semibold">
-                AI Engineer
-              </p>
-            </div>
-          </div>
+          <div className="hero-number">01</div>
         </div>
       </section>
 
       {/* DAILY ROUTINE */}
-      <section className="border-y border-black/5 bg-white px-6 py-28">
-        <div className="mx-auto max-w-6xl">
+      <section className="routine-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">A DAY IN MY LIFE</p>
+            <h2>Daily Routine<span>.</span></h2>
+          </div>
 
-          <div className="mb-12 flex items-end justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[.25em] text-black/35">
-                My day
-              </p>
-              <h2 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
-                Daily Routine
-              </h2>
-            </div>
+          <p>
+            Small habits, consistent effort, and time spent learning shape my
+            everyday life.
+          </p>
+        </div>
 
-            <div className="hidden rounded-full border border-black/10 px-4 py-2 text-xs text-black/50 sm:block">
-              Daily Rotation
+        <div className="routine-layout">
+          <div className="routine-cover">
+            <img
+              src="/assets/routine/cover.jpg"
+              alt="Daily routine"
+            />
+
+            <div className="routine-cover-overlay">
+              <span>DAILY ROTATION</span>
+              <strong>Keep moving.</strong>
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              ["01", "Morning", "Gym, coffee & planning"],
-              ["02", "Day", "Coding, driving & learning"],
-              ["03", "Night", "Cooking, reading & relaxing"],
-            ].map(([number, title, text]) => (
-              <div
-                key={number}
-                className="group rounded-[2rem] border border-black/10 bg-[#fafafa] p-7 transition duration-300 hover:-translate-y-2 hover:shadow-xl"
-              >
-                <span className="text-xs text-black/30">
-                  {number}
+          <div className="routine-list">
+            {routines.map(([time, activity], index) => (
+              <div className="routine-item" key={time}>
+                <span className="routine-index">
+                  0{index + 1}
                 </span>
 
-                <h3 className="mt-14 text-2xl font-semibold">
-                  {title}
-                </h3>
+                <div>
+                  <small>{time}</small>
+                  <strong>{activity}</strong>
+                </div>
 
-                <p className="mt-3 text-sm leading-6 text-black/45">
-                  {text}
-                </p>
+                <ArrowUpRight size={18} />
               </div>
             ))}
           </div>
@@ -271,308 +245,305 @@ export default function Portfolio() {
       </section>
 
       {/* ABOUT */}
-      <section
-        id="about"
-        className="mx-auto max-w-6xl px-6 py-32"
-      >
-        <p className="text-xs uppercase tracking-[.25em] text-black/35">
-          01 — About Me
-        </p>
+      <section id="about" className="about-section">
+        <div className="section-number">02</div>
 
-        <div className="mt-10 grid gap-16 md:grid-cols-2">
-          <h2 className="text-5xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+        <div className="about-content">
+          <p className="eyebrow">ABOUT ME</p>
+
+          <h2>
             Curious mind.
             <br />
-            Practical hands.
-            <br />
-            Always learning.
+            <span>Practical hands.</span>
           </h2>
 
-          <div className="max-w-lg">
-            <p className="text-lg leading-8 text-black/55">
-              Saya Iky. Saya tertarik pada teknologi, Artificial
-              Intelligence, dan proses membuat ide menjadi sesuatu
-              yang benar-benar bisa digunakan.
-            </p>
+          <p className="large-text">
+            I&apos;m Iky — someone who enjoys combining technology with real
+            world experience. From driving trucks to learning AI engineering,
+            I believe every experience can become a foundation for something
+            better.
+          </p>
 
-            <p className="mt-6 text-lg leading-8 text-black/55">
-              Saya juga menikmati gym, membaca buku, memasak, dan
-              berbagai pengalaman praktis di kehidupan sehari-hari.
-            </p>
+          <div className="about-bottom">
+            <div>
+              <small>BASED IN</small>
+              <strong>Indonesia</strong>
+            </div>
+
+            <div>
+              <small>INTERESTS</small>
+              <strong>AI · Technology · Learning</strong>
+            </div>
+
+            <div>
+              <small>HOBBIES</small>
+              <strong>Gym · Books · Cooking</strong>
+            </div>
           </div>
         </div>
       </section>
 
       {/* EXPERIENCE */}
-      <section
-        id="experience"
-        className="border-y border-black/5 bg-white px-6 py-32"
-      >
-        <div className="mx-auto max-w-6xl">
-          <p className="text-xs uppercase tracking-[.25em] text-black/35">
-            02 — Experience
-          </p>
-
-          <div className="mt-12">
-            {experience.map(([year, title, description]) => (
-              <div
-                key={title}
-                className="grid gap-4 border-t border-black/10 py-9 md:grid-cols-[200px_1fr]"
-              >
-                <p className="text-sm text-black/35">
-                  {year}
-                </p>
-
-                <div>
-                  <h3 className="text-2xl font-semibold">
-                    {title}
-                  </h3>
-
-                  <p className="mt-3 max-w-xl leading-7 text-black/45">
-                    {description}
-                  </p>
-                </div>
-              </div>
-            ))}
+      <section id="experience" className="experience-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">MY JOURNEY</p>
+            <h2>Experience<span>.</span></h2>
           </div>
+
+          <span className="section-label">03</span>
+        </div>
+
+        <div className="experience-list">
+          {experience.map((item) => (
+            <article className="experience-card" key={item.title}>
+              <span className="experience-year">{item.year}</span>
+
+              <div className="experience-main">
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+
+              <ArrowUpRight size={21} />
+            </article>
+          ))}
         </div>
       </section>
 
       {/* TECH STACK */}
-      <section
-        id="stack"
-        className="mx-auto max-w-6xl px-6 py-32"
-      >
-        <p className="text-xs uppercase tracking-[.25em] text-black/35">
-          03 — My Tech Stack
-        </p>
+      <section id="stack" className="stack-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">WHAT I USE</p>
+            <h2>My Tech Stack<span>.</span></h2>
+          </div>
 
-        <h2 className="mt-5 text-5xl font-bold tracking-tight">
-          Tools I work with.
-        </h2>
+          <p>
+            Technologies I&apos;m learning and using to build modern digital
+            experiences.
+          </p>
+        </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
-          {stack.map(([name, category]) => (
-            <div
-              key={name}
-              className="group rounded-[1.75rem] border border-black/10 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-black text-sm font-bold text-white">
-                {name.charAt(0)}
+        <div className="tech-grid">
+          {technologies.map((tech) => (
+            <div className="tech-card" key={tech.name}>
+              <div className="tech-symbol">{tech.symbol}</div>
+
+              <div>
+                <small>{tech.type}</small>
+                <strong>{tech.name}</strong>
               </div>
 
-              <h3 className="mt-7 font-semibold">
-                {name}
-              </h3>
-
-              <p className="mt-1 text-xs text-black/35">
-                {category}
-              </p>
+              <ArrowUpRight size={17} />
             </div>
           ))}
         </div>
       </section>
 
-      {/* WORK */}
-      <section
-        id="work"
-        className="border-y border-black/5 bg-white px-6 py-32"
-      >
-        <div className="mx-auto max-w-6xl">
-          <p className="text-xs uppercase tracking-[.25em] text-black/35">
-            04 — Selected Work
-          </p>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {works.map(([title, image]) => (
-              <article
-                key={title}
-                className="group overflow-hidden rounded-[2rem] border border-black/10 bg-[#fafafa]"
-              >
-                <div className="aspect-[4/3] overflow-hidden bg-neutral-200">
-                  <img
-                    src={image}
-                    alt={title}
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                  />
-                </div>
-
-                <div className="flex items-center justify-between p-6">
-                  <h3 className="font-semibold">
-                    {title}
-                  </h3>
-
-                  <ArrowUpRight size={18} />
-                </div>
-              </article>
-            ))}
+      {/* SELECTED WORK */}
+      <section id="work" className="work-section">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">SELECTED WORK</p>
+            <h2>Things I&apos;ve done<span>.</span></h2>
           </div>
+
+          <span className="section-label">04</span>
+        </div>
+
+        <div className="work-grid">
+          {works.map((work, index) => (
+            <article
+              className={`work-card ${
+                index === 1 ? "work-card-large" : ""
+              }`}
+              key={work.title}
+            >
+              <div className="work-image">
+                <img src={work.image} alt={work.title} />
+
+                <div className="work-overlay">
+                  <span>VIEW EXPERIENCE</span>
+                  <ArrowUpRight size={22} />
+                </div>
+              </div>
+
+              <div className="work-info">
+                <div>
+                  <small>{work.category}</small>
+                  <h3>{work.title}</h3>
+                </div>
+
+                <span>0{index + 1}</span>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* CV */}
-      <section className="mx-auto max-w-6xl px-6 py-32">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-black p-9 text-white md:p-16">
-          <div className="relative z-10 flex flex-col justify-between gap-10 md:flex-row md:items-center">
-            <div>
-              <p className="text-xs uppercase tracking-[.25em] text-white/40">
-                Curriculum Vitae
-              </p>
-
-              <h2 className="mt-4 text-4xl font-bold md:text-5xl">
-                Want to know more?
-              </h2>
-            </div>
+      <section className="cv-section">
+        <div className="cv-card">
+          <div>
+            <p className="eyebrow">CURRICULUM VITAE</p>
+            <h2>Want to know more?</h2>
+            <p>
+              Download my CV to see my background, experience, and skills.
+            </p>
 
             <a
               href="/assets/cv/iky-cv.pdf"
               target="_blank"
               rel="noreferrer"
-              className="flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:scale-105"
+              className="primary-button"
             >
-              Download CV
-              <ArrowUpRight size={17} />
+              Download CV <ArrowUpRight size={17} />
             </a>
+          </div>
+
+          <div className="cv-photo">
+            <img src="/assets/cv/photo.JPG" alt="Iky CV" />
           </div>
         </div>
       </section>
 
       {/* CONTACT */}
-      <section
-        id="contact"
-        className="mx-auto max-w-6xl px-6 pb-32"
-      >
-        <p className="text-xs uppercase tracking-[.25em] text-black/35">
-          05 — Contact
-        </p>
+      <section id="contact" className="contact-section">
+        <div className="section-number">05</div>
 
-        <h2 className="mt-6 max-w-3xl text-5xl font-bold leading-tight tracking-tight md:text-7xl">
-          Let&apos;s build something together.
-        </h2>
+        <div className="contact-content">
+          <p className="eyebrow">GET IN TOUCH</p>
 
-        <div className="mt-10 flex flex-wrap gap-3">
-          <a
-            href="https://wa.me/6283140209281"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-medium text-white"
-          >
-            <MessageCircle size={18} />
-            WhatsApp
-          </a>
+          <h2>
+            Let&apos;s create
+            <br />
+            something <span>great.</span>
+          </h2>
 
-          <a
-            href="https://www.instagram.com/calmessence__/"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-medium"
-          >
-            <Instagram size={18} />
-            Instagram
-          </a>
+          <p className="contact-description">
+            Have an idea, opportunity, or simply want to say hello? Feel free
+            to reach out.
+          </p>
 
-          <a
-            href="https://www.facebook.com/share/1DgK4XQaC2/"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-medium"
-          >
-            <Facebook size={18} />
-            Facebook
-          </a>
+          <div className="social-links">
+            <a
+              href="https://www.instagram.com/calmessence__/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Instagram size={19} />
+              Instagram
+              <ArrowUpRight size={16} />
+            </a>
+
+            <a
+              href="https://wa.me/6283140209281"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <MessageCircle size={19} />
+              WhatsApp
+              <ArrowUpRight size={16} />
+            </a>
+
+            <a
+              href="https://www.facebook.com/share/1DgK4XQaC2/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Facebook size={19} />
+              Facebook
+              <ArrowUpRight size={16} />
+            </a>
+
+            <a
+              href="https://www.tiktok.com/@usrnotfound32"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="tiktok-icon">♪</span>
+              TikTok
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-black/10 px-6 py-8">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <span className="font-bold">Iky.</span>
-          <span className="text-xs text-black/35">
-            Built with Next.js
-          </span>
-        </div>
+      <footer className="footer">
+        <strong>Iky<span>.</span></strong>
+        <p>Designed & built with curiosity.</p>
+        <span>© 2026</span>
       </footer>
 
       {/* AI BUTTON */}
       {!aiOpen && (
         <button
+          className="ai-floating-button"
           onClick={() => setAiOpen(true)}
-          className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-black text-xl text-white shadow-2xl transition hover:scale-110"
+          aria-label="Open AI Assistant"
         >
-          ✦
+          <span className="ai-orb">✦</span>
+          <span>Ask Iky AI</span>
         </button>
       )}
 
-      {/* AI ASSISTANT */}
+      {/* AI PANEL */}
       {aiOpen && (
-        <div className="fixed bottom-5 right-5 z-[100] flex w-[calc(100%-40px)] max-w-[390px] flex-col overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-2xl">
-
-          <div className="flex items-center justify-between border-b border-black/5 px-5 py-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white">
-                ✦
-              </div>
-
+        <div className="ai-panel">
+          <div className="ai-header">
+            <div className="ai-title">
+              <div className="ai-orb">✦</div>
               <div>
-                <p className="text-sm font-semibold">
-                  Iky Assistant
-                </p>
-
-                <p className="text-[11px] text-green-500">
-                  ● Online
-                </p>
+                <strong>Iky Assistant</strong>
+                <small>
+                  <span className="status-dot" />
+                  Online
+                </small>
               </div>
             </div>
 
             <button
+              className="ai-close"
               onClick={() => setAiOpen(false)}
-              className="text-black/40"
+              aria-label="Close AI Assistant"
             >
-              <X size={19} />
+              <X size={20} />
             </button>
           </div>
 
-          <div className="flex h-[330px] flex-col gap-3 overflow-y-auto p-4">
-            {messages.map((item, index) => (
+          <div className="ai-messages">
+            {messages.map((message, index) => (
               <div
                 key={index}
-                className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 ${
-                  item.role === "user"
-                    ? "ml-auto bg-black text-white"
-                    : "bg-neutral-100 text-black/70"
+                className={`ai-message ${
+                  message.role === "user" ? "user" : "assistant"
                 }`}
               >
-                {item.content}
+                {message.content}
               </div>
             ))}
 
             {loading && (
-              <div className="w-fit rounded-2xl bg-neutral-100 px-4 py-3 text-sm text-black/40">
+              <div className="ai-message assistant">
                 Thinking...
               </div>
             )}
           </div>
 
-          <div className="border-t border-black/5 p-3">
-            <div className="flex items-center rounded-2xl bg-neutral-100 px-3">
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") askAI();
-                }}
-                placeholder="Ask me anything..."
-                className="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none"
-              />
+          <div className="ai-input-wrap">
+            <input
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") sendMessage();
+              }}
+              placeholder="Ask me anything..."
+            />
 
-              <button
-                onClick={askAI}
-                disabled={loading}
-                className="rounded-xl bg-black p-2 text-white disabled:opacity-30"
-              >
-                <Send size={16} />
-              </button>
-            </div>
+            <button onClick={sendMessage} disabled={loading}>
+              <Send size={17} />
+            </button>
           </div>
         </div>
       )}
