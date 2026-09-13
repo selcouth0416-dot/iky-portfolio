@@ -149,8 +149,8 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO */}
-      <Reveal>
-  <section className="hero-section">
+     <Reveal> 
+      <section className="hero-section">
         <div className="hero-copy">
           <p className="eyebrow">PORTFOLIO · 2026</p>
 
@@ -199,10 +199,10 @@ export default function Portfolio() {
      <div className="hero-number">01</div>
         </div>
       </section>
-</Reveal>
+    </Reveal>
 
       {/* DAILY ROUTINE */}
-      <Reveal>
+ <Reveal>
   <section className="routine-section">
         <div className="section-heading">
           <div>
@@ -317,7 +317,7 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-      </Reveal>
+     </Reveal>
       
       {/* TECH STACK */}
      <Reveal>
@@ -349,7 +349,7 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-      </Reveal>
+     </Reveal>
 
       {/* SELECTED WORK */}
      <Reveal>
@@ -420,7 +420,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-      </Reveal>
+     </Reveal>
 
       {/* CONTACT */}
       <section id="contact" className="contact-section">
@@ -483,7 +483,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-      </Reveal>
+     </Reveal>
 
       {/* FOOTER */} 
      <footer className="footer">
