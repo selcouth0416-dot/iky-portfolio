@@ -1457,3 +1457,35 @@ img {
     transition: none !important;
   }
 }
+
+/* Scroll Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animasi sedikit lebih halus di mobile */
+@media (max-width: 768px) {
+  .reveal {
+    transform: translateY(22px);
+    transition-duration: 0.7s;
+  }
+}
+
+/* Hormati pengguna yang mematikan animasi */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
