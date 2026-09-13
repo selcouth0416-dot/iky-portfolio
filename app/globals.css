@@ -1458,53 +1458,6 @@ img {
   }
 }
 
-/* Scroll Animation */
-.hero-section,
-.routine-section,
-.about-section,
-.experience-section,
-.stack-section,
-.work-section,
-.cv-section,
-.contact-section {
-  opacity: 0;
-  transform: translateY(35px);
-  animation: sectionReveal 0.8s ease forwards;
-  animation-timeline: view();
-  animation-range: entry 0% cover 25%;
-}
-
-@keyframes sectionReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Smooth section entrance animation */
-.hero-section,
-.routine-section,
-.about-section,
-.experience-section,
-.stack-section,
-.work-section,
-.cv-section,
-.contact-section {
-  animation: sectionFadeUp 0.8s ease both;
-}
-
-@keyframes sectionFadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* Scroll Reveal */
 .scroll-hidden {
   opacity: 0;
