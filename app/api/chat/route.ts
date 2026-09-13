@@ -126,7 +126,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ text });
-    } catch (error) {
+      } catch (error) {
     console.error("AI API ERROR:", error);
 
     return NextResponse.json(
@@ -134,3 +134,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+}
