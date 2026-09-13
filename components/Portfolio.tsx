@@ -65,40 +65,46 @@ const routines = [
   ["Night", "Relax & Reset"],
 ];
 
-const [messages, setMessages] = useState<Message[]>([
-  {
-    role: "assistant",
-    content:
-      "Halo! Saya Iky Assistant. Ada yang ingin kamu ketahui tentang Iky?",
-  },
-]);
+export default function Portfolio() {
+  const [aiOpen, setAiOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
 
-useEffect(() => {
-  const sections = document.querySelectorAll("section");
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("scroll-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
+  const [messages, setMessages] = useState<Message[]>([
     {
-      threshold: 0.15,
-    }
-  );
+      role: "assistant",
+      content:
+        "Halo! Saya Iky Assistant. Ada yang ingin kamu ketahui tentang Iky?",
+    },
+  ]);
 
-  sections.forEach((section) => {
-    section.classList.add("scroll-hidden");
-    observer.observe(section);
-  });
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
 
-  return () => observer.disconnect();
-}, []);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("scroll-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      }
+    );
 
-async function sendMessage() {
+    sections.forEach((section) => {
+      section.classList.add("scroll-hidden");
+      observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  async function sendMessage() {
+    const text = input.trim();
 
   async function sendMessage() {
     const text = input.trim();
