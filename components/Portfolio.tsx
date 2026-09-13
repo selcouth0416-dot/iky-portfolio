@@ -288,7 +288,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-     <Reveal>
+     </Reveal>
        
       {/* EXPERIENCE */}
      <Reveal>
@@ -317,8 +317,8 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-    <Reveal>
-
+      </Reveal>
+      
       {/* TECH STACK */}
      <Reveal>
       <section id="stack" className="stack-section">
@@ -349,7 +349,7 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-    <Reveal>
+      </Reveal>
 
       {/* SELECTED WORK */}
      <Reveal>
@@ -420,6 +420,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* CONTACT */}
       <section id="contact" className="contact-section">
@@ -482,7 +483,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-    <Reveal>
+      </Reveal>
 
       {/* FOOTER */} 
      <footer className="footer">
