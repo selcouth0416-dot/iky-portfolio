@@ -202,7 +202,8 @@ export default function Portfolio() {
 </Reveal>
 
       {/* DAILY ROUTINE */}
-      <section className="routine-section">
+      <Reveal>
+  <section className="routine-section">
         <div className="section-heading">
           <div>
             <p className="eyebrow">A DAY IN MY LIFE</p>
@@ -246,8 +247,10 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+    </Reveal>
 
       {/* ABOUT */}
+     <Reveal>
       <section id="about" className="about-section">
         <div className="section-number">02</div>
 
@@ -285,9 +288,11 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-
+     <Reveal>
+       
       {/* EXPERIENCE */}
-      <section id="experience" className="experience-section">
+     <Reveal>
+       <section id="experience" className="experience-section">
         <div className="section-heading">
           <div>
             <p className="eyebrow">MY JOURNEY</p>
@@ -312,8 +317,10 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
+    <Reveal>
 
       {/* TECH STACK */}
+     <Reveal>
       <section id="stack" className="stack-section">
         <div className="section-heading">
           <div>
@@ -342,8 +349,10 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
+    <Reveal>
 
       {/* SELECTED WORK */}
+     <Reveal>
       <section id="work" className="work-section">
         <div className="section-heading">
           <div>
@@ -383,8 +392,10 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
+    <Reveal>
 
       {/* CV */}
+    <Reveal> 
       <section className="cv-section">
         <div className="cv-card">
           <div>
@@ -471,9 +482,10 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+    <Reveal>
 
-      {/* FOOTER */}
-      <footer className="footer">
+      {/* FOOTER */} 
+     <footer className="footer">
         <strong>Iky<span>.</span></strong>
         <p>Designed & built with curiosity.</p>
         <span>© 2026</span>
