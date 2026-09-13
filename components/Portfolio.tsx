@@ -148,7 +148,6 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO */}
-     <Reveal> 
       <section className="hero-section">
         <div className="hero-copy">
           <p className="eyebrow">PORTFOLIO · 2026</p>
