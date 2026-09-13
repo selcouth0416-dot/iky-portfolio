@@ -65,35 +65,40 @@ const routines = [
   ["Night", "Relax & Reset"],
 ];
 
-type Message = {
-  role: "user" | "assistant";
-  content: string;
-};
+const [messages, setMessages] = useState<Message[]>([
+  {
+    role: "assistant",
+    content:
+      "Halo! Saya Iky Assistant. Ada yang ingin kamu ketahui tentang Iky?",
+  },
+]);
 
-  useEffect(() => {
-    const sections = document.querySelectorAll("section");
+useEffect(() => {
+  const sections = document.querySelectorAll("section");
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("scroll-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-      }
-    );
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("scroll-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.15,
+    }
+  );
 
-    sections.forEach((section) => {
-      section.classList.add("scroll-hidden");
-      observer.observe(section);
-    });
+  sections.forEach((section) => {
+    section.classList.add("scroll-hidden");
+    observer.observe(section);
+  });
 
-    return () => observer.disconnect();
-  }, []);
+  return () => observer.disconnect();
+}, []);
+
+async function sendMessage() {
 
   async function sendMessage() {
     const text = input.trim();
