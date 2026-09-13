@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Reveal from "./Reveal";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -199,10 +198,8 @@ export default function Portfolio() {
      <div className="hero-number">01</div>
         </div>
       </section>
-    </Reveal>
 
       {/* DAILY ROUTINE */}
- <Reveal>
   <section className="routine-section">
         <div className="section-heading">
           <div>
@@ -247,10 +244,8 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-    </Reveal>
 
       {/* ABOUT */}
-     <Reveal>
       <section id="about" className="about-section">
         <div className="section-number">02</div>
 
@@ -288,10 +283,8 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-     </Reveal>
        
       {/* EXPERIENCE */}
-     <Reveal>
        <section id="experience" className="experience-section">
         <div className="section-heading">
           <div>
@@ -317,10 +310,8 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-     </Reveal>
       
       {/* TECH STACK */}
-     <Reveal>
       <section id="stack" className="stack-section">
         <div className="section-heading">
           <div>
@@ -349,10 +340,8 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-     </Reveal>
 
       {/* SELECTED WORK */}
-     <Reveal>
       <section id="work" className="work-section">
         <div className="section-heading">
           <div>
@@ -392,10 +381,8 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
-    <Reveal>
 
       {/* CV */}
-    <Reveal> 
       <section className="cv-section">
         <div className="cv-card">
           <div>
@@ -420,7 +407,6 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-     </Reveal>
 
       {/* CONTACT */}
       <section id="contact" className="contact-section">
@@ -483,7 +469,6 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-     </Reveal>
 
       {/* FOOTER */} 
      <footer className="footer">
