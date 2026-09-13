@@ -71,7 +71,6 @@ type Message = {
 };
 
 export default function Portfolio() {
-export default function Portfolio() {
   const [aiOpen, setAiOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
