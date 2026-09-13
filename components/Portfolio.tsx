@@ -65,6 +65,12 @@ const routines = [
   ["Night", "Relax & Reset"],
 ];
 
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+};
+
+export default function Portfolio() {
 export default function Portfolio() {
   const [aiOpen, setAiOpen] = useState(false);
   const [input, setInput] = useState("");
