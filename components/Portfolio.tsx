@@ -105,9 +105,6 @@ export default function Portfolio() {
 
   async function sendMessage() {
     const text = input.trim();
-
-  async function sendMessage() {
-    const text = input.trim();
     if (!text || loading) return;
 
     const nextMessages: Message[] = [
