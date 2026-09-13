@@ -149,7 +149,8 @@ export default function Portfolio() {
       </nav>
 
       {/* HERO */}
-      <section id="home" className="hero-section">
+      <Reveal>
+  <section className="hero-section">
         <div className="hero-copy">
           <p className="eyebrow">PORTFOLIO · 2026</p>
 
@@ -195,9 +196,10 @@ export default function Portfolio() {
             </div>
           </div>
 
-          <div className="hero-number">01</div>
+     <div className="hero-number">01</div>
         </div>
       </section>
+</Reveal>
 
       {/* DAILY ROUTINE */}
       <section className="routine-section">
