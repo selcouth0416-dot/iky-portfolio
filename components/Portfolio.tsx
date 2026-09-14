@@ -386,13 +386,19 @@ export default function Portfolio() {
 <div className="tech-grid">
   {technologies.map((tech) => (
     <div className="tech-card" key={tech.name}>
-      <div className="tech-symbol">
-        <TechIcon
-          name={
-            tech.symbol as Parameters<typeof TechIcon>[0]["name"]
-          }
-        />
-      </div>
+      <div
+  className={`tech-symbol ${
+    tech.symbol === "next" || tech.symbol === "express"
+      ? "tech-symbol-dark"
+      : ""
+  }`}
+>
+  <TechIcon
+    name={
+      tech.symbol as Parameters<typeof TechIcon>[0]["name"]
+    }
+  />
+</div>
 
       <div>
         <small>{tech.type}</small>
