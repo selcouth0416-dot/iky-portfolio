@@ -619,6 +619,11 @@ h2 span,
   font-weight: 700;
 }
 
+.tech-symbol-dark {
+  background: #f1f1ef;
+  color: #111;
+}
+
 .tech-card > div:nth-child(2) {
   margin-top: 24px;
 }
