@@ -1759,3 +1759,81 @@ img {
     transform: translateY(0) scale(1);
   }
 }
+
+/* Section Heading Reveal */
+section > .section-header,
+section > h2,
+section > .section-title {
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-hidden > .section-header,
+.scroll-hidden > h2,
+.scroll-hidden > .section-title {
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+.scroll-visible > .section-header,
+.scroll-visible > h2,
+.scroll-visible > .section-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section Divider Reveal */
+.section-divider {
+  width: 0;
+  opacity: 0;
+  transition:
+    width 1s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease;
+}
+
+.scroll-visible .section-divider {
+  width: 100%;
+  opacity: 1;
+}
+
+/* Footer Cinematic Reveal */
+footer {
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+footer.scroll-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer a {
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+footer a:hover {
+  transform: translateY(-2px);
+  opacity: 0.7;
+}
+
+/* Social Icon Interaction */
+.social-links a {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease;
+}
+
+.social-links a:hover {
+  transform: translateY(-4px) scale(1.08);
+  opacity: 0.75;
+}
+
+.social-links a:active {
+  transform: scale(0.94);
+}
