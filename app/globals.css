@@ -1485,7 +1485,7 @@ img {
   transform: translateY(0) scale(1);
 }
 
-/* Card Hover + Reveal */
+/* Card Motion */
 .experience-card,
 .tech-card,
 .work-card,
@@ -1493,14 +1493,14 @@ img {
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease,
-    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .experience-card:hover,
 .tech-card:hover,
 .work-card:hover,
 .routine-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px) scale(1.01);
 }
 
 /* Cinematic Hero Animation */
