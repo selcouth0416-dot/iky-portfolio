@@ -27,14 +27,14 @@ const experience = [
   },
 ];
 const technologies = [
-  { name: "React", type: "Frontend", symbol: "R" },
-  { name: "Next.js", type: "Frontend", symbol: "N" },
-  { name: "Tailwind CSS", type: "Frontend", symbol: "T" },
-  { name: "TypeScript", type: "Frontend", symbol: "TS" },
-  { name: "Node.js", type: "Backend", symbol: "N" },
-  { name: "Express.js", type: "Backend", symbol: "E" },
-  { name: "MySQL", type: "Database", symbol: "M" },
-  { name: "MongoDB", type: "Database", symbol: "M" },
+  { name: "React", type: "Frontend", symbol: "react" },
+  { name: "Next.js", type: "Frontend", symbol: "nextjs" },
+  { name: "Tailwind CSS", type: "Frontend", symbol: "tailwind" },
+  { name: "TypeScript", type: "Frontend", symbol: "typescript" },
+  { name: "Node.js", type: "Backend", symbol: "nodejs" },
+  { name: "Express.js", type: "Backend", symbol: "express" },
+  { name: "MySQL", type: "Database", symbol: "mysql" },
+  { name: "MongoDB", type: "Database", symbol: "mongodb" },
 ];
 const works = [
   {
