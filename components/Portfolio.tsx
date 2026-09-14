@@ -383,7 +383,7 @@ export default function Portfolio() {
             experiences.
           </p>
         </div>
-        <div className="tech-grid">
+<div className="tech-grid">
   {technologies.map((tech) => (
     <div className="tech-card" key={tech.name}>
       <div className="tech-symbol">
@@ -393,15 +393,17 @@ export default function Portfolio() {
           }
         />
       </div>
+
       <div>
         <small>{tech.type}</small>
         <strong>{tech.name}</strong>
       </div>
+
       <ArrowUpRight size={17} />
     </div>
   ))}
 </div>
-      </section>
+</section>
       {/* SELECTED WORK */}
       <section id="work" className="work-section">
         <div className="section-heading">
