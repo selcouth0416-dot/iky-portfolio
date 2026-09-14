@@ -194,56 +194,60 @@ useEffect(() => {
         </a>
       </nav>
 
-      {/* HERO */}
-      <section className="hero-section">
-        <div className="hero-copy">
-          <p className="eyebrow">PORTFOLIO · 2026</p>
+  {/* HERO */}
+<section className="hero-section">
+  <div className="hero-copy">
+    <p className="eyebrow hero-animate hero-delay-1">
+      PORTFOLIO · 2026
+    </p>
 
-          <h1>
-            Turning
-            <br />
-            ideas into
-            <br />
-            <span>reality.</span>
-          </h1>
+    <h1 className="hero-animate hero-delay-2">
+      Turning
+      <br />
+      ideas into
+      <br />
+      <span>reality.</span>
+    </h1>
 
-          <p className="hero-description">
-            AI Engineer, truck driver, and lifelong learner. I enjoy building
-            things, learning new technology, and turning ideas into something
-            real.
-          </p>
+    <p className="hero-description hero-animate hero-delay-3">
+      AI Engineer, truck driver, and lifelong learner. I enjoy building
+      things, learning new technology, and turning ideas into something
+      real.
+    </p>
 
-          <div className="hero-actions">
-            <a href="#work" className="primary-button">
-              Explore my work <ArrowDown size={17} />
-            </a>
+    <div className="hero-actions hero-animate hero-delay-4">
+      <a href="#work" className="primary-button">
+        Explore my work <ArrowDown size={17} />
+      </a>
 
-            <a href="#contact" className="secondary-button">
-              Get in touch <ArrowUpRight size={17} />
-            </a>
-          </div>
-        </div>
+      <a href="#contact" className="secondary-button">
+        Get in touch <ArrowUpRight size={17} />
+      </a>
+    </div>
+  </div>
 
-        <div className="hero-visual">
-          <div className="hero-image-wrap">
-            <img
-              src="/assets/profile/profile.jpg"
-              alt="Iky"
-              className="hero-image"
-            />
-          </div>
+  <div className="hero-visual">
+    <div className="hero-image-wrap profile-image-animate">
+      <img
+        src="/assets/profile/profile.jpg"
+        alt="Iky"
+        className="hero-image"
+      />
+    </div>
 
-          <div className="hero-floating-card">
-            <span className="status-dot" />
-            <div>
-              <strong>Available</strong>
-              <small>for new opportunities</small>
-            </div>
-          </div>
+    <div className="hero-floating-card hero-animate hero-delay-3">
+      <span className="status-dot" />
+      <div>
+        <strong>Available</strong>
+        <small>for new opportunities</small>
+      </div>
+    </div>
 
-     <div className="hero-number">01</div>
-        </div>
-      </section>
+    <div className="hero-number hero-animate hero-delay-4">
+      01
+    </div>
+  </div>
+</section>
 
       {/* DAILY ROUTINE */}
   <section className="routine-section">
