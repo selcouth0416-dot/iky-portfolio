@@ -1,4 +1,4 @@
- ""use client";
+"use client";
 import { useEffect, useState } from "react";
 import { Menu, Moon, Sun, X } from "lucide-react";
 const links = [
