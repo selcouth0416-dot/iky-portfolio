@@ -18,31 +18,47 @@ export default function Reveal({
 
   useEffect(() => {
     const element = ref.current;
+
     if (!element) return;
+
+    // Respect users who prefer reduced motion.
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      setVisible(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(element);
-        }
+        if (!entry.isIntersecting) return;
+
+        setVisible(true);
+        observer.unobserve(element);
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.08,
+        rootMargin: "0px 0px -80px 0px",
       }
     );
 
     observer.observe(element);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <div
       ref={ref}
-      className={`reveal ${visible ? "reveal-visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      className={`reveal ${visible ? "reveal-visible" : ""} ${className}`.trim()}
+      style={{
+        transitionDelay: `${delay}ms`,
+        willChange: visible ? "auto" : "transform, opacity",
+      }}
     >
       {children}
     </div>
