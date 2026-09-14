@@ -132,20 +132,6 @@ useEffect(() => {
   return () => observer.disconnect();
 }, []);
   
-    const items = section.querySelectorAll(
-      ".experience-card, .tech-card, .work-card, .routine-card"
-    );
-
-    items.forEach((item) => {
-      item.classList.add("item-hidden");
-    });
-
-    observer.observe(section);
-  });
-
-  return () => observer.disconnect();
-}, []);
-
   async function sendMessage() {
     const text = input.trim();
     if (!text || loading) return;
