@@ -65,6 +65,29 @@ type Message = {
 };
 export default function Portfolio() {
   const [aiOpen, setAiOpen] = useState(false);
+
+  useEffect(() => {
+    const audio = new Audio("/assets/music/Background.mp3");
+    audio.loop = true;
+    audio.volume = 0.18;
+
+    const startMusic = () => {
+      audio.play().catch(() => {});
+    };
+
+    startMusic();
+
+    document.addEventListener("click", startMusic, { once: true });
+    document.addEventListener("touchstart", startMusic, { once: true });
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+      document.removeEventListener("click", startMusic);
+      document.removeEventListener("touchstart", startMusic);
+    };
+  }, []);
+
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
