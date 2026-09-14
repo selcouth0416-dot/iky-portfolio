@@ -83,30 +83,51 @@ export default function Portfolio() {
     },
   ]);
 
-  useEffect(() => {
-    const sections = document.querySelectorAll("section");
+useEffect(() => {
+  const sections = document.querySelectorAll("section");
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("scroll-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-      }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = entry.target;
+
+          section.classList.add("scroll-visible");
+
+          const items = section.querySelectorAll(
+            ".experience-card, .tech-card, .work-card, .routine-card"
+          );
+
+          items.forEach((item, index) => {
+            (item as HTMLElement).style.transitionDelay = `${index * 120}ms`;
+            item.classList.add("item-visible");
+          });
+
+          observer.unobserve(section);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+    }
+  );
+
+  sections.forEach((section) => {
+    section.classList.add("scroll-hidden");
+
+    const items = section.querySelectorAll(
+      ".experience-card, .tech-card, .work-card, .routine-card"
     );
 
-    sections.forEach((section) => {
-      section.classList.add("scroll-hidden");
-      observer.observe(section);
+    items.forEach((item) => {
+      item.classList.add("item-hidden");
     });
 
-    return () => observer.disconnect();
-  }, []);
+    observer.observe(section);
+  });
+
+  return () => observer.disconnect();
+}, []);
 
   async function sendMessage() {
     const text = input.trim();
