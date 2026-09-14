@@ -90,21 +90,36 @@ useEffect(() => {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const section = entry.target;
+  const section = entry.target;
 
-          section.classList.add("scroll-visible");
+  section.classList.remove("scroll-hidden");
+  section.classList.add("scroll-visible");
 
-          const items = section.querySelectorAll(
-            ".experience-card, .tech-card, .work-card, .routine-card"
-          );
+  const items = section.querySelectorAll(
+    ".experience-card, .tech-card, .work-card, .routine-card"
+  );
 
-          items.forEach((item, index) => {
-            (item as HTMLElement).style.transitionDelay = `${index * 120}ms`;
-            item.classList.add("item-visible");
-          });
+  items.forEach((item, index) => {
+    (item as HTMLElement).style.transitionDelay = `${index * 120}ms`;
 
-          observer.unobserve(section);
-        }
+    item.classList.remove("item-hidden");
+    item.classList.add("item-visible");
+  });
+} else {
+  const section = entry.target;
+
+  section.classList.remove("scroll-visible");
+  section.classList.add("scroll-hidden");
+
+  const items = section.querySelectorAll(
+    ".experience-card, .tech-card, .work-card, .routine-card"
+  );
+
+  items.forEach((item) => {
+    item.classList.remove("item-visible");
+    item.classList.add("item-hidden");
+  });
+}
       });
     },
     {
@@ -112,9 +127,14 @@ useEffect(() => {
     }
   );
 
-  sections.forEach((section) => {
+    sections.forEach((section) => {
     section.classList.add("scroll-hidden");
+    observer.observe(section);
+  });
 
+  return () => observer.disconnect();
+}, []);
+  
     const items = section.querySelectorAll(
       ".experience-card, .tech-card, .work-card, .routine-card"
     );
