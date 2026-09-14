@@ -1849,31 +1849,6 @@ footer a:hover {
   }
 
   .scroll-hidden {
-    transform: translateY(25px);
-  }
-
-  .item-hidden {
-    transform: translateY(20px) scale(0.985);
-  }
-
-  .work-card:hover,
-  .experience-card:hover,
-  .tech-card:hover,
-  .routine-card:hover {
-    transform: translateY(-4px);
-  }
-}
-
-@media (max-width: 680px) {
-  .hero-animate {
-    animation-duration: 0.8s;
-  }
-
-  .profile-image-animate {
-    animation-duration: 0.9s, 7s;
-  }
-
-  .scroll-hidden {
     transform: translateY(25px) scale(0.99);
     filter: blur(5px);
   }
