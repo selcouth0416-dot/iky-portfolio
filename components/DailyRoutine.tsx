@@ -11,6 +11,13 @@ import {
 } from "lucide-react";
 import { defaultRoutine, type RoutineData } from "@/data/routine";
 
+const formatTitle = (value: string) =>
+  value
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
 export default function DailyRoutine() {
   const [routine, setRoutine] = useState<RoutineData>(defaultRoutine);
   const [index, setIndex] = useState(0);
@@ -20,8 +27,13 @@ export default function DailyRoutine() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    fetch("/assets/routine/routine.json", { cache: "no-store" })
-      .then((res) => (res.ok ? res.json() : Promise.reject()))
+    fetch("/assets/routine/routine.json", {
+      cache: "no-store",
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed");
+        return res.json();
+      })
       .then((data) => {
         if (data?.tracks && Array.isArray(data.tracks)) {
           setRoutine({
@@ -36,12 +48,7 @@ export default function DailyRoutine() {
       .catch(() => {});
   }, []);
 
-  const current =
-    routine.tracks[index] ?? routine.tracks[0];
-
-  /* =========================
-     AUDIO SOURCE
-  ========================= */
+  const current = routine.tracks[index] ?? routine.tracks[0];
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -60,10 +67,6 @@ export default function DailyRoutine() {
     }
   }, [current, playing]);
 
-  /* =========================
-     AUDIO EVENTS
-  ========================= */
-
   useEffect(() => {
     const audio = audioRef.current;
 
@@ -75,9 +78,7 @@ export default function DailyRoutine() {
         return;
       }
 
-      setProgress(
-        (audio.currentTime / audio.duration) * 100
-      );
+      setProgress((audio.currentTime / audio.duration) * 100);
     };
 
     const handleEnded = () => {
@@ -89,32 +90,14 @@ export default function DailyRoutine() {
       setPlaying(true);
     };
 
-    audio.addEventListener(
-      "timeupdate",
-      handleTimeUpdate
-    );
-
-    audio.addEventListener(
-      "ended",
-      handleEnded
-    );
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("ended", handleEnded);
 
     return () => {
-      audio.removeEventListener(
-        "timeupdate",
-        handleTimeUpdate
-      );
-
-      audio.removeEventListener(
-        "ended",
-        handleEnded
-      );
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("ended", handleEnded);
     };
   }, [routine.tracks.length]);
-
-  /* =========================
-     PLAYER CONTROLS
-  ========================= */
 
   const toggle = () => {
     const audio = audioRef.current;
@@ -129,12 +112,8 @@ export default function DailyRoutine() {
 
     audio
       .play()
-      .then(() => {
-        setPlaying(true);
-      })
-      .catch(() => {
-        setPlaying(false);
-      });
+      .then(() => setPlaying(true))
+      .catch(() => setPlaying(false));
   };
 
   const select = (trackIndex: number) => {
@@ -155,8 +134,7 @@ export default function DailyRoutine() {
   const next = () => {
     setIndex(
       (currentIndex) =>
-        (currentIndex + 1) %
-        routine.tracks.length
+        (currentIndex + 1) % routine.tracks.length
     );
 
     setPlaying(true);
@@ -164,76 +142,69 @@ export default function DailyRoutine() {
 
   return (
     <section className="routine-card">
-      <audio
-        ref={audioRef}
-        preload="metadata"
-      />
+      <audio ref={audioRef} preload="metadata" />
 
-      {/* =========================
-          HEADER
-      ========================= */}
+      {/* HEADER */}
 
       <div className="routine-heading">
-        <div>
-          <p className="eyebrow">DAILY ROTATION</p>
+        <div className="routine-heading-copy">
+          <span className="routine-label">
+            DAILY ROTATION
+          </span>
 
-          <h2>{routine.title}</h2>
+          <h2>Keep moving.</h2>
 
-          <p className="routine-description">
-            {routine.description}
+          <p>
+            Small habits, simple routines, and the things
+            that keep my day moving.
           </p>
         </div>
 
         <span className="routine-counter">
-          {String(index + 1).padStart(2, "0")} /{" "}
+          {String(index + 1).padStart(2, "0")}
+          <span>/</span>
           {String(routine.tracks.length).padStart(2, "0")}
         </span>
       </div>
 
-      {/* =========================
-          FEATURE PLAYER
-      ========================= */}
+      {/* PLAYER */}
 
-      <div className="player-shell">
-        <div className="routine-image-wrap">
+      <div className="routine-player">
+        <div className="routine-image">
           <img
             src={routine.cover}
-            alt="Daily Routine cover"
-            className="routine-cover"
+            alt="Daily Routine"
           />
 
-          <div className="routine-image-overlay">
+          <div className="routine-image-content">
             <span>DAILY ROUTINE</span>
-
-            <strong>
-              Keep moving.
-            </strong>
+            <strong>Keep moving.</strong>
           </div>
         </div>
 
-        <div className="now-playing">
-          <div className="player-top">
-            <span className="player-label">
-              NOW PLAYING
-            </span>
+        <div className="routine-player-content">
+          <div className="routine-player-top">
+            <span>NOW PLAYING</span>
 
-            <span className="player-status">
+            <small>
               {playing ? "PLAYING" : "PAUSED"}
-            </span>
+            </small>
           </div>
 
-          <div className="track-meta">
+          <div className="routine-current">
             <strong>
-              {current?.title ?? "No track"}
+              {current
+                ? formatTitle(current.title)
+                : "No track"}
             </strong>
 
             <span>
-              {current?.artist ?? "Add audio in GitHub"}
+              {current?.artist || "Add audio in GitHub"}
             </span>
           </div>
 
-          <div className="player-bottom">
-            <div className="player-progress">
+          <div className="routine-player-bottom">
+            <div className="routine-progress">
               <span
                 style={{
                   width: `${progress}%`,
@@ -241,22 +212,20 @@ export default function DailyRoutine() {
               />
             </div>
 
-            <div className="player-actions">
+            <div className="routine-controls">
               <button
                 type="button"
-                aria-label="Previous track"
                 onClick={previous}
+                aria-label="Previous track"
               >
                 <SkipBack size={16} />
               </button>
 
               <button
                 type="button"
-                className="play-main"
-                aria-label={
-                  playing ? "Pause" : "Play"
-                }
+                className="routine-play"
                 onClick={toggle}
+                aria-label={playing ? "Pause" : "Play"}
               >
                 {playing ? (
                   <Pause size={17} />
@@ -270,16 +239,16 @@ export default function DailyRoutine() {
 
               <button
                 type="button"
-                aria-label="Next track"
                 onClick={next}
+                aria-label="Next track"
               >
                 <SkipForward size={16} />
               </button>
 
               <button
                 type="button"
+                className="routine-more"
                 aria-label="More options"
-                className="muted"
               >
                 <MoreHorizontal size={17} />
               </button>
@@ -288,9 +257,7 @@ export default function DailyRoutine() {
         </div>
       </div>
 
-      {/* =========================
-          TRACK LIST
-      ========================= */}
+      {/* TRACK LIST */}
 
       <div className="routine-list">
         {routine.tracks.map((track, trackIndex) => {
@@ -306,14 +273,13 @@ export default function DailyRoutine() {
               onClick={() => select(trackIndex)}
             >
               <span className="track-number">
-                {String(trackIndex + 1).padStart(
-                  2,
-                  "0"
-                )}
+                {String(trackIndex + 1).padStart(2, "0")}
               </span>
 
               <span className="track-copy">
-                <strong>{track.title}</strong>
+                <strong>
+                  {formatTitle(track.title)}
+                </strong>
 
                 <small>{track.artist}</small>
               </span>
