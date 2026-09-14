@@ -1,0 +1,243 @@
+\documentclass[10pt, a4paper]{article}
+
+% --- UNIVERSAL PREAMBLE BLOCK ---
+\usepackage[a4paper, top=1.6cm, bottom=1.6cm, left=1.8cm, right=1.8cm]{geometry}
+\usepackage{fontspec}
+
+\usepackage[indonesian, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{indonesian}
+\babelprovide[import, onchar=ids fonts]{english}
+
+% Set default Latin font to Noto Sans
+\babelfont{rm}{Noto Sans}
+
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+% --- END UNIVERSAL PREAMBLE ---
+
+\usepackage{xcolor}
+
+% Editorial Monochromatic Palette with Warm Slate Undertones
+\definecolor{primaryText}{RGB}{17, 24, 39}       % Near-black Obsidian (#111827)
+\definecolor{accentDark}{RGB}{15, 23, 42}         % Deep Charcoal Slate (#0F172A)
+\definecolor{mutedText}{RGB}{100, 116, 139}       % Soft Cool Gray (#64748B)
+\definecolor{subtleBorder}{RGB}{226, 232, 240}    % Minimalist border line (#E2E8F0)
+\definecolor{tagBackground}{RGB}{248, 250, 252}   % Off-white Tag Background (#F8FAFC)
+
+% Disable page numbering for a pristine single-page layout
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primaryText,
+  urlcolor=primaryText,
+  pdfauthor={IKY},
+  pdftitle={iky-cv}
+}
+
+\begin{document}
+\color{primaryText}
+
+% ==============================================================================
+% EDITORIAL HERO SECTION: ASYMMETRIC HEADER
+% ==============================================================================
+\noindent
+\begin{minipage}[b]{0.64\textwidth}
+  {\fontsize{9}{11}\selectfont \textbf{\textcolor{mutedText}{00 \;\textbar\; PERSONAL PORTFOLIO RESUME}}}\\[0.4em]
+  {\fontsize{42}{44}\bfseries\selectfont \textcolor{primaryText}{IKY}}\\[0.25em]
+  {\fontsize{10.5}{13}\selectfont \textbf{\textcolor{accentDark}{AI ENGINEER \;\;$\cdot$\;\; TRUCK DRIVER \;\;$\cdot$\;\; WELDING}}}\\[0.8em]
+  {\fontsize{9.5}{14}\selectfont \textcolor{primaryText}{Adaptable professional combining hands-on field experience with modern technology. Experienced in AI, commercial driving, and welding, with a strong interest in technology, practical problem solving, and continuous learning.}}
+\end{minipage}%
+\hfill
+\begin{minipage}[b]{0.32\textwidth}
+  \flushright
+  \setlength{\fboxsep}{10pt}%
+  \setlength{\fboxrule}{0.8pt}%
+  \fcolorbox{subtleBorder}{tagBackground}{%
+    \begin{minipage}{0.88\textwidth}
+      {\fontsize{8}{10}\selectfont \textbf{\textcolor{mutedText}{LOCATION}}}\\[0.15em]
+      {\fontsize{9}{11}\selectfont \textbf{Samarinda, ID}}\\[0.6em]
+      {\fontsize{8}{10}\selectfont \textbf{\textcolor{mutedText}{CONTACT}}}\\[0.15em]
+      {\fontsize{8.5}{11}\selectfont muhammadrzky101@gmail.com}\\[0.15em]
+      {\fontsize{8.5}{11}\selectfont +62 831-4020-9281}\\[0.6em]
+      {\fontsize{7.5}{9}\selectfont \textbf{\textcolor{accentDark}{$\bullet$ PUBLIC PORTFOLIO VERIFIED}}}
+    \end{minipage}%
+  }
+\end{minipage}
+
+\vspace{1.1em}
+{\color{subtleBorder}\hrule height 0.8pt}
+\vspace{1.2em}
+
+% ==============================================================================
+% MAIN CONTENT: ASYMMETRIC DUAL COLUMNS
+% ==============================================================================
+\noindent
+\begin{minipage}[t]{0.60\textwidth}
+  % ----------------------------------------------------------------------------
+  % SECTION 01: EXPERIENCE
+  % ----------------------------------------------------------------------------
+  {\fontsize{8.5}{11}\selectfont \textbf{\textcolor{mutedText}{01 \;\textbar\; EXPERIENCE}}}\\[0.6em]
+
+  % Role 1: AI Engineer
+  \noindent
+  \begin{minipage}[t]{0.26\textwidth}
+    {\fontsize{9}{12}\selectfont \textbf{\textcolor{accentDark}{2026}}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.74\textwidth}
+    {\fontsize{10.5}{13}\selectfont \textbf{AI Engineer}}\\[0.15em]
+    {\fontsize{8.5}{10.5}\selectfont \textcolor{mutedText}{Inovasi \& Digital Product Development}}\\[0.35em]
+    {\fontsize{9}{13}\selectfont Eksplorasi rekayasa model AI cerdas, otomatisasi alur kerja digital, eksperimen \textit{smart software}, dan pengembangan solusi produk digital modern.}
+  \end{minipage}
+
+  \vspace{1.1em}
+
+  % Role 2: Driver Truk
+  \noindent
+  \begin{minipage}[t]{0.26\textwidth}
+    {\fontsize{9}{12}\selectfont \textbf{\textcolor{accentDark}{2024 -- Sekarang}}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.74\textwidth}
+    {\fontsize{10.5}{13}\selectfont \textbf{Driver Truk}}\\[0.15em]
+    {\fontsize{8.5}{10.5}\selectfont \textcolor{mutedText}{Transportasi Niaga \& Rantai Pasok}}\\[0.35em]
+    {\fontsize{9}{13}\selectfont Mengemudikan kendaraan niaga dengan disiplin tinggi, memprioritaskan keselamatan rute (\textit{defensive driving}), kesiapan armada mesin, dan ketepatan waktu.}
+  \end{minipage}
+
+  \vspace{1.1em}
+
+  % Role 3: Pengelasan
+  \noindent
+  \begin{minipage}[t]{0.26\textwidth}
+    {\fontsize{9}{12}\selectfont \textbf{\textcolor{accentDark}{2023 -- 2024}}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.74\textwidth}
+    {\fontsize{10.5}{13}\selectfont \textbf{Pengelasan}}\\[0.15em]
+    {\fontsize{8.5}{10.5}\selectfont \textcolor{mutedText}{Teknik \& Fabrikasi Logam}}\\[0.35em]
+    {\fontsize{9}{13}\selectfont Fabrikasi serta penyambungan logam presisi dengan ketelitian mekanik teknis dan penerapan ketat standar Kesehatan \& Keselamatan Kerja (K3).}
+  \end{minipage}
+
+  \vspace{1.3em}
+
+  % ----------------------------------------------------------------------------
+  % SECTION 02: EDUCATION
+  % ----------------------------------------------------------------------------
+  {\fontsize{8.5}{11}\selectfont \textbf{\textcolor{mutedText}{02 \;\textbar\; EDUCATION}}}\\[0.6em]
+
+  \noindent
+  \begin{minipage}[t]{0.26\textwidth}
+    {\fontsize{9}{12}\selectfont \textcolor{mutedText}{2018 -- 2022}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.74\textwidth}
+    {\fontsize{9.5}{12}\selectfont \textbf{SMKN 16 Samarinda}}\\[0.1em]
+    {\fontsize{8.5}{11}\selectfont \textcolor{mutedText}{Pendidikan Menengah Kejuruan $\cdot$ Samarinda}}
+  \end{minipage}
+
+  \vspace{0.7em}
+
+  \noindent
+  \begin{minipage}[t]{0.26\textwidth}
+    {\fontsize{9}{12}\selectfont \textcolor{mutedText}{2015 -- 2018}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.74\textwidth}
+    {\fontsize{9.5}{12}\selectfont \textbf{SMP Syaichona Cholil Samarinda}}\\[0.1em]
+    {\fontsize{8.5}{11}\selectfont \textcolor{mutedText}{Pendidikan Menengah Pertama $\cdot$ Samarinda}}
+  \end{minipage}
+
+  \vspace{0.7em}
+
+  \noindent
+  \begin{minipage}[t]{0.26\textwidth}
+    {\fontsize{9}{12}\selectfont \textcolor{mutedText}{2009 -- 2015}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.74\textwidth}
+    {\fontsize{9.5}{12}\selectfont \textbf{SDS Nirwana}}\\[0.1em]
+    {\fontsize{8.5}{11}\selectfont \textcolor{mutedText}{Pendidikan Dasar $\cdot$ Samarinda}}
+  \end{minipage}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.36\textwidth}
+  % ----------------------------------------------------------------------------
+  % SECTION 03: CORE CAPABILITIES & SKILLS
+  % ----------------------------------------------------------------------------
+  {\fontsize{8.5}{11}\selectfont \textbf{\textcolor{mutedText}{03 \;\textbar\; SKILLS \& STACK}}}\\[0.6em]
+
+  \setlength{\fboxsep}{4.5pt}%
+  \setlength{\fboxrule}{0.5pt}%
+  \fcolorbox{subtleBorder}{tagBackground}{\textbf{\fontsize{8.5}{11}\selectfont AI \& Web Technology}}\\[0.35em]
+  \fcolorbox{subtleBorder}{tagBackground}{\textbf{\fontsize{8.5}{11}\selectfont Safe Commercial Driving}}\\[0.35em]
+  \fcolorbox{subtleBorder}{tagBackground}{\textbf{\fontsize{8.5}{11}\selectfont Truck \& Car Mechanics}}\\[0.35em]
+  \fcolorbox{subtleBorder}{tagBackground}{\textbf{\fontsize{8.5}{11}\selectfont Welding \& Metal Fabrication}}\\[0.35em]
+  \fcolorbox{subtleBorder}{tagBackground}{\textbf{\fontsize{8.5}{11}\selectfont Safety Awareness (K3)}}\\[0.35em]
+  \fcolorbox{subtleBorder}{tagBackground}{\textbf{\fontsize{8.5}{11}\selectfont Time Management}}\\[0.35em]
+  \fcolorbox{subtleBorder}{tagBackground}{\textbf{\fontsize{8.5}{11}\selectfont Problem Solving}}\\[0.35em]
+  \fcolorbox{subtleBorder}{tagBackground}{\textbf{\fontsize{8.5}{11}\selectfont Communication \& Teamwork}}
+
+  \vspace{1.5em}
+
+  % ----------------------------------------------------------------------------
+  % SECTION 04: INTERESTS & LIFESTYLE
+  % ----------------------------------------------------------------------------
+  {\fontsize{8.5}{11}\selectfont \textbf{\textcolor{mutedText}{04 \;\textbar\; INTERESTS}}}\\[0.6em]
+
+  \noindent
+  \begin{minipage}[t]{0.12\textwidth}
+    {\fontsize{8.5}{11}\selectfont \textbf{01}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.88\textwidth}
+    {\fontsize{9}{12}\selectfont \textbf{Gym}}\\[0.1em]
+    {\fontsize{8}{11}\selectfont \textcolor{mutedText}{Stamina, disiplin fisik \& fokus}}
+  \end{minipage}
+
+  \vspace{0.6em}
+
+  \noindent
+  \begin{minipage}[t]{0.12\textwidth}
+    {\fontsize{8.5}{11}\selectfont \textbf{02}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.88\textwidth}
+    {\fontsize{9}{12}\selectfont \textbf{Reading}}\\[0.1em]
+    {\fontsize{8}{11}\selectfont \textcolor{mutedText}{Eksplorasi wawasan, ide \& konsep baru}}
+  \end{minipage}
+
+  \vspace{0.6em}
+
+  \noindent
+  \begin{minipage}[t]{0.12\textwidth}
+    {\fontsize{8.5}{11}\selectfont \textbf{03}}
+  \end{minipage}%
+  \begin{minipage}[t]{0.88\textwidth}
+    {\fontsize{9}{12}\selectfont \textbf{Cooking}}\\[0.1em]
+    {\fontsize{8}{11}\selectfont \textcolor{mutedText}{Eksperimen komposisi rasa \& ketelitian}}
+  \end{minipage}
+
+  \vspace{1.6em}
+
+  % ----------------------------------------------------------------------------
+  % SECTION 05: VERIFICATION BADGE
+  % ----------------------------------------------------------------------------
+  {\fontsize{8.5}{11}\selectfont \textbf{\textcolor{mutedText}{05 \;\textbar\; IDENTITY}}}\\[0.5em]
+  {\fontsize{8}{11}\selectfont \textcolor{mutedText}{Digital CV version compiled for open web distribution. Strictly verified under non-sensitive public parameters.}}
+\end{minipage}
+
+\vfill
+
+% ==============================================================================
+% MINIMAL EDITORIAL FOOTER
+% ==============================================================================
+\noindent
+{\color{subtleBorder}\hrule height 0.6pt}
+\vspace{0.5em}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+  {\fontsize{7.5}{9}\selectfont \textcolor{mutedText}{IKY $\cdot$ AI ENGINEER / TRUCK DRIVER / WELDING}}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.5\textwidth}
+  \flushright
+  {\fontsize{7.5}{9}\selectfont \textcolor{mutedText}{SAMARINDA, KALIMANTAN TIMUR $\cdot$ INDONESIA}}
+\end{minipage}
+
+\end{document}
