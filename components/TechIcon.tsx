@@ -29,7 +29,7 @@ export default function TechIcon({ name }: { name: keyof typeof icons }) {
       viewBox="0 0 24 24"
       className="tech-icon"
       role="img"
-      fill="currentColor"
+      fill={`#${icon.hex}`}
     >
       <path d={icon.path} />
     </svg>
