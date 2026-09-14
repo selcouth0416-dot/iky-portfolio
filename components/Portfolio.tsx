@@ -89,37 +89,34 @@ useEffect(() => {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
+        const section = entry.target;
+
         if (entry.isIntersecting) {
-  const section = entry.target;
+          section.classList.remove("scroll-hidden");
+          section.classList.add("scroll-visible");
 
-  section.classList.remove("scroll-hidden");
-  section.classList.add("scroll-visible");
+          const items = section.querySelectorAll(
+            ".experience-card, .tech-card, .work-card, .routine-card"
+          );
 
-  const items = section.querySelectorAll(
-    ".experience-card, .tech-card, .work-card, .routine-card"
-  );
+          items.forEach((item, index) => {
+            (item as HTMLElement).style.transitionDelay = `${index * 120}ms`;
+            item.classList.remove("item-hidden");
+            item.classList.add("item-visible");
+          });
+        } else {
+          section.classList.remove("scroll-visible");
+          section.classList.add("scroll-hidden");
 
-  items.forEach((item, index) => {
-    (item as HTMLElement).style.transitionDelay = `${index * 120}ms`;
+          const items = section.querySelectorAll(
+            ".experience-card, .tech-card, .work-card, .routine-card"
+          );
 
-    item.classList.remove("item-hidden");
-    item.classList.add("item-visible");
-  });
-} else {
-  const section = entry.target;
-
-  section.classList.remove("scroll-visible");
-  section.classList.add("scroll-hidden");
-
-  const items = section.querySelectorAll(
-    ".experience-card, .tech-card, .work-card, .routine-card"
-  );
-
-  items.forEach((item) => {
-    item.classList.remove("item-visible");
-    item.classList.add("item-hidden");
-  });
-}
+          items.forEach((item) => {
+            item.classList.remove("item-visible");
+            item.classList.add("item-hidden");
+          });
+        }
       });
     },
     {
@@ -127,7 +124,7 @@ useEffect(() => {
     }
   );
 
-    sections.forEach((section) => {
+  sections.forEach((section) => {
     section.classList.add("scroll-hidden");
     observer.observe(section);
   });
