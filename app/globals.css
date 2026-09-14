@@ -1871,7 +1871,7 @@ footer a:hover {
 .experience-card.item-hidden,
 .tech-card.item-hidden,
 .work-card.item-hidden,
-.routine-card.item-hidden {
+.routine-item.item-hidden {
   opacity: 0;
   transform: translateY(45px) scale(0.94);
 }
@@ -1879,7 +1879,7 @@ footer a:hover {
 .experience-card.item-visible,
 .tech-card.item-visible,
 .work-card.item-visible,
-.routine-card.item-visible {
+.routine-item.item-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
