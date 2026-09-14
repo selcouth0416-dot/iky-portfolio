@@ -9,6 +9,8 @@ import {
   Send,
   X,
 } from "lucide-react";
+
+import TechIcon from "./TechIcon";
 const experience = [
   {
     year: "2026",
@@ -382,17 +384,23 @@ export default function Portfolio() {
           </p>
         </div>
         <div className="tech-grid">
-          {technologies.map((tech) => (
-            <div className="tech-card" key={tech.name}>
-              <div className="tech-symbol">{tech.symbol}</div>
-              <div>
-                <small>{tech.type}</small>
-                <strong>{tech.name}</strong>
-              </div>
-              <ArrowUpRight size={17} />
-            </div>
-          ))}
-        </div>
+  {technologies.map((tech) => (
+    <div className="tech-card" key={tech.name}>
+      <div className="tech-symbol">
+        <TechIcon
+          name={
+            tech.symbol as Parameters<typeof TechIcon>[0]["name"]
+          }
+        />
+      </div>
+      <div>
+        <small>{tech.type}</small>
+        <strong>{tech.name}</strong>
+      </div>
+      <ArrowUpRight size={17} />
+    </div>
+  ))}
+</div>
       </section>
       {/* SELECTED WORK */}
       <section id="work" className="work-section">
