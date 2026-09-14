@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import {
   ArrowDown,
@@ -11,6 +12,8 @@ import {
 } from "lucide-react";
 
 import TechIcon from "./TechIcon";
+import DailyRoutine from "./DailyRoutine";
+
 const experience = [
   {
     year: "2026",
@@ -28,6 +31,7 @@ const experience = [
     text: "Experience in welding work with attention to precision, safety, and practical problem solving.",
   },
 ];
+
 const technologies = [
   { name: "React", type: "Frontend", symbol: "react" },
   { name: "Next.js", type: "Frontend", symbol: "next" },
@@ -38,6 +42,7 @@ const technologies = [
   { name: "MySQL", type: "Database", symbol: "mysql" },
   { name: "MongoDB", type: "Database", symbol: "mongodb" },
 ];
+
 const works = [
   {
     title: "AI Engineer",
@@ -55,21 +60,30 @@ const works = [
     image: "/assets/projects/welding.jpg",
   },
 ];
-const routines = [
-  ["Morning", "Gym & Start the Day"],
-  ["Day", "Work & Build"],
-  ["Evening", "Learning & Reading"],
-  ["Night", "Relax & Reset"],
-];
+
 type Message = {
   role: "user" | "assistant";
   content: string;
 };
+
 export default function Portfolio() {
   const [aiOpen, setAiOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: "assistant",
+      content:
+        "Halo! Saya Iky Assistant. Ada yang ingin kamu ketahui tentang Iky?",
+    },
+  ]);
+
+  /* BACKGROUND MUSIC */
 
   useEffect(() => {
     const audio = new Audio("/assets/music/Background.mp3");
+
     audio.loop = true;
     audio.volume = 0.18;
 
@@ -79,61 +93,63 @@ export default function Portfolio() {
 
     startMusic();
 
-    document.addEventListener("click", startMusic, { once: true });
-    document.addEventListener("touchstart", startMusic, { once: true });
+    document.addEventListener("click", startMusic, {
+      once: true,
+    });
+
+    document.addEventListener("touchstart", startMusic, {
+      once: true,
+    });
 
     return () => {
       audio.pause();
       audio.currentTime = 0;
+
       document.removeEventListener("click", startMusic);
       document.removeEventListener("touchstart", startMusic);
     };
   }, []);
 
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content:
-        "Halo! Saya Iky Assistant. Ada yang ingin kamu ketahui tentang Iky?",
-    },
-  ]);
-  /*
-   * CINEMATIC SCROLL SYSTEM
-   *
-   * - Section muncul saat masuk viewport
-   * - Semua card masuk satu per satu
-   * - Animasi diputar ulang ketika scroll naik/turun
-   * - Tidak menggunakan blur
-   */
+  /* SCROLL ANIMATION */
+
   useEffect(() => {
     const sections = document.querySelectorAll("section");
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const section = entry.target as HTMLElement;
+
           const items = section.querySelectorAll(
             ".section-heading, .section-number, .section-label, " +
               ".about-content, .experience-card, .tech-card, " +
-              ".work-card, .routine-cover, .routine-item, .cv-card, " +
+              ".work-card, .routine-card, .routine-heading, " +
+              ".routine-player, .routine-item, .cv-card, " +
               ".contact-content"
           );
+
           if (entry.isIntersecting) {
             section.classList.add("scroll-visible");
             section.classList.remove("scroll-hidden");
+
             items.forEach((item, index) => {
               const element = item as HTMLElement;
-              element.style.transitionDelay = `${index * 110}ms`;
+
+              element.style.transitionDelay =
+                `${index * 90}ms`;
+
               element.classList.remove("item-hidden");
               element.classList.add("item-visible");
             });
           } else {
             section.classList.remove("scroll-visible");
             section.classList.add("scroll-hidden");
+
             items.forEach((item) => {
               const element = item as HTMLElement;
+
               element.style.transitionDelay = "0ms";
+
               element.classList.remove("item-visible");
               element.classList.add("item-hidden");
             });
@@ -145,26 +161,37 @@ export default function Portfolio() {
         rootMargin: "0px 0px -8% 0px",
       }
     );
+
     sections.forEach((section) => {
       section.classList.add("scroll-hidden");
+
       const items = section.querySelectorAll(
         ".section-heading, .section-number, .section-label, " +
           ".about-content, .experience-card, .tech-card, " +
-          ".work-card, .routine-cover, .routine-item, .cv-card, " +
+          ".work-card, .routine-card, .routine-heading, " +
+          ".routine-player, .routine-item, .cv-card, " +
           ".contact-content"
       );
+
       items.forEach((item) => {
         item.classList.add("item-hidden");
       });
+
       observer.observe(section);
     });
+
     return () => {
       observer.disconnect();
     };
   }, []);
+
+  /* AI CHAT */
+
   async function sendMessage() {
     const text = input.trim();
+
     if (!text || loading) return;
+
     const nextMessages: Message[] = [
       ...messages,
       {
@@ -172,9 +199,11 @@ export default function Portfolio() {
         content: text,
       },
     ];
+
     setMessages(nextMessages);
     setInput("");
     setLoading(true);
+
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -185,7 +214,9 @@ export default function Portfolio() {
           messages: nextMessages,
         }),
       });
+
       const data = await response.json();
+
       setMessages([
         ...nextMessages,
         {
@@ -200,20 +231,24 @@ export default function Portfolio() {
         ...nextMessages,
         {
           role: "assistant",
-          content: "Maaf, AI Assistant sedang tidak dapat digunakan.",
+          content:
+            "Maaf, AI Assistant sedang tidak dapat digunakan.",
         },
       ]);
     } finally {
       setLoading(false);
     }
   }
+
   return (
     <main className="portfolio">
       {/* NAVBAR */}
+
       <nav className="floating-nav">
         <a href="#home" className="nav-logo">
           Iky<span>.</span>
         </a>
+
         <div className="nav-links">
           <a href="#about">About</a>
           <a href="#experience">Experience</a>
@@ -221,16 +256,21 @@ export default function Portfolio() {
           <a href="#work">Work</a>
           <a href="#contact">Contact</a>
         </div>
+
         <a href="#contact" className="nav-contact">
-          Let&apos;s Talk <ArrowUpRight size={15} />
+          Let&apos;s Talk
+          <ArrowUpRight size={15} />
         </a>
       </nav>
+
       {/* HERO */}
+
       <section className="hero-section" id="home">
         <div className="hero-copy">
           <p className="eyebrow hero-animate hero-delay-1">
             PORTFOLIO · 2026
           </p>
+
           <h1 className="hero-animate hero-delay-2">
             Turning
             <br />
@@ -238,20 +278,26 @@ export default function Portfolio() {
             <br />
             <span>reality.</span>
           </h1>
+
           <p className="hero-description hero-animate hero-delay-3">
-            AI Engineer, truck driver, and lifelong learner. I enjoy building
-            things, learning new technology, and turning ideas into something
-            real.
+            AI Engineer, truck driver, and lifelong learner. I enjoy
+            building things, learning new technology, and turning ideas
+            into something real.
           </p>
+
           <div className="hero-actions hero-animate hero-delay-4">
             <a href="#work" className="primary-button">
-              Explore my work <ArrowDown size={17} />
+              Explore my work
+              <ArrowDown size={17} />
             </a>
+
             <a href="#contact" className="secondary-button">
-              Get in touch <ArrowUpRight size={17} />
+              Get in touch
+              <ArrowUpRight size={17} />
             </a>
           </div>
         </div>
+
         <div className="hero-visual">
           <div className="hero-image-wrap profile-image-animate">
             <img
@@ -260,84 +306,60 @@ export default function Portfolio() {
               className="hero-image"
             />
           </div>
+
           <div className="hero-floating-card hero-animate hero-delay-3">
             <span className="status-dot" />
+
             <div>
               <strong>Available</strong>
               <small>for new opportunities</small>
             </div>
           </div>
+
           <div className="hero-number hero-animate hero-delay-4">
             01
           </div>
         </div>
       </section>
+
       {/* DAILY ROUTINE */}
+
       <section className="routine-section">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">A DAY IN MY LIFE</p>
-            <h2>
-              Daily Routine<span>.</span>
-            </h2>
-          </div>
-          <p>
-            Small habits, consistent effort, and time spent learning shape my
-            everyday life.
-          </p>
-        </div>
-        <div className="routine-layout">
-          <div className="routine-cover">
-            <img
-              src="/assets/routine/cover.jpg"
-              alt="Daily routine"
-            />
-            <div className="routine-cover-overlay">
-              <span>DAILY ROTATION</span>
-              <strong>Keep moving.</strong>
-            </div>
-          </div>
-          <div className="routine-list">
-            {routines.map(([time, activity], index) => (
-              <div className="routine-item" key={time}>
-                <span className="routine-index">
-                  0{index + 1}
-                </span>
-                <div>
-                  <small>{time}</small>
-                  <strong>{activity}</strong>
-                </div>
-                <ArrowUpRight size={18} />
-              </div>
-            ))}
-          </div>
-        </div>
+        <DailyRoutine />
       </section>
+
       {/* ABOUT */}
+
       <section id="about" className="about-section">
         <div className="section-number">02</div>
+
         <div className="about-content">
           <p className="eyebrow">ABOUT ME</p>
+
           <h2>
             Curious mind.
             <br />
             <span>Practical hands.</span>
           </h2>
+
           <p className="large-text">
-            I&apos;m Iky — someone who enjoys combining technology with real
-            world experience. From driving trucks to learning AI engineering,
-            I believe every experience can become a foundation for something
-            better.
+            I&apos;m Iky — someone who enjoys combining technology with
+            real world experience. From driving trucks to learning AI
+            engineering, I believe every experience can become a
+            foundation for something better.
           </p>
+
           <div className="about-bottom">
             <div>
               <small>BASED IN</small>
               <strong>Indonesia</strong>
             </div>
+
             <div>
               <small>INTERESTS</small>
               <strong>AI · Technology · Learning</strong>
             </div>
+
             <div>
               <small>HOBBIES</small>
               <strong>Gym · Books · Cooking</strong>
@@ -345,82 +367,107 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+
       {/* EXPERIENCE */}
+
       <section id="experience" className="experience-section">
         <div className="section-heading">
           <div>
             <p className="eyebrow">MY JOURNEY</p>
+
             <h2>
               Experience<span>.</span>
             </h2>
           </div>
+
           <span className="section-label">03</span>
         </div>
+
         <div className="experience-list">
           {experience.map((item) => (
-            <article className="experience-card" key={item.title}>
-              <span className="experience-year">{item.year}</span>
+            <article
+              className="experience-card"
+              key={item.title}
+            >
+              <span className="experience-year">
+                {item.year}
+              </span>
+
               <div className="experience-main">
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
               </div>
+
               <ArrowUpRight size={21} />
             </article>
           ))}
         </div>
       </section>
+
       {/* TECH STACK */}
+
       <section id="stack" className="stack-section">
         <div className="section-heading">
           <div>
             <p className="eyebrow">WHAT I USE</p>
+
             <h2>
               My Tech Stack<span>.</span>
             </h2>
           </div>
+
           <p>
-            Technologies I&apos;m learning and using to build modern digital
-            experiences.
+            Technologies I&apos;m learning and using to build modern
+            digital experiences.
           </p>
         </div>
-<div className="tech-grid">
-  {technologies.map((tech) => (
-    <div className="tech-card" key={tech.name}>
-      <div
-  className={`tech-symbol ${
-    tech.symbol === "next" || tech.symbol === "express"
-      ? "tech-symbol-dark"
-      : ""
-  }`}
->
-  <TechIcon
-    name={
-      tech.symbol as Parameters<typeof TechIcon>[0]["name"]
-    }
-  />
-</div>
 
-      <div>
-        <small>{tech.type}</small>
-        <strong>{tech.name}</strong>
-      </div>
+        <div className="tech-grid">
+          {technologies.map((tech) => (
+            <div className="tech-card" key={tech.name}>
+              <div
+                className={`tech-symbol ${
+                  tech.symbol === "next" ||
+                  tech.symbol === "express"
+                    ? "tech-symbol-dark"
+                    : ""
+                }`}
+              >
+                <TechIcon
+                  name={
+                    tech.symbol as Parameters<
+                      typeof TechIcon
+                    >[0]["name"]
+                  }
+                />
+              </div>
 
-      <ArrowUpRight size={17} />
-    </div>
-  ))}
-</div>
-</section>
+              <div>
+                <small>{tech.type}</small>
+                <strong>{tech.name}</strong>
+              </div>
+
+              <ArrowUpRight size={17} />
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* SELECTED WORK */}
+
       <section id="work" className="work-section">
         <div className="section-heading">
           <div>
             <p className="eyebrow">SELECTED WORK</p>
+
             <h2>
               Things I&apos;ve done<span>.</span>
             </h2>
           </div>
+
           <span className="section-label">04</span>
         </div>
+
         <div className="work-grid">
           {works.map((work, index) => (
             <article
@@ -430,41 +477,55 @@ export default function Portfolio() {
               key={work.title}
             >
               <div className="work-image">
-                <img src={work.image} alt={work.title} />
+                <img
+                  src={work.image}
+                  alt={work.title}
+                />
+
                 <div className="work-overlay">
                   <span>VIEW EXPERIENCE</span>
                   <ArrowUpRight size={22} />
                 </div>
               </div>
+
               <div className="work-info">
                 <div>
                   <small>{work.category}</small>
                   <h3>{work.title}</h3>
                 </div>
+
                 <span>0{index + 1}</span>
               </div>
             </article>
           ))}
         </div>
       </section>
+
       {/* CV */}
+
       <section className="cv-section">
         <div className="cv-card">
           <div>
             <p className="eyebrow">CURRICULUM VITAE</p>
+
             <h2>Want to know more?</h2>
+
             <p>
-              Download my CV to see my background, experience, and skills.
+              Download my CV to see my background, experience, and
+              skills.
             </p>
+
             <a
               href="/assets/cv/iky-cv.pdf"
               target="_blank"
               rel="noreferrer"
               className="primary-button"
             >
-              Download CV <ArrowUpRight size={17} />
+              Download CV
+              <ArrowUpRight size={17} />
             </a>
           </div>
+
           <div className="cv-photo">
             <img
               src="/assets/cv/photo.JPG"
@@ -473,20 +534,26 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+
       {/* CONTACT */}
+
       <section id="contact" className="contact-section">
         <div className="section-number">05</div>
+
         <div className="contact-content">
           <p className="eyebrow">GET IN TOUCH</p>
+
           <h2>
             Let&apos;s create
             <br />
             something <span>great.</span>
           </h2>
+
           <p className="contact-description">
-            Have an idea, opportunity, or simply want to say hello? Feel free
-            to reach out.
+            Have an idea, opportunity, or simply want to say hello?
+            Feel free to reach out.
           </p>
+
           <div className="social-links">
             <a
               href="https://www.instagram.com/calmessence__/"
@@ -497,6 +564,7 @@ export default function Portfolio() {
               Instagram
               <ArrowUpRight size={16} />
             </a>
+
             <a
               href="https://wa.me/6283140209281"
               target="_blank"
@@ -506,6 +574,7 @@ export default function Portfolio() {
               WhatsApp
               <ArrowUpRight size={16} />
             </a>
+
             <a
               href="https://www.facebook.com/share/1DgK4XQaC2/"
               target="_blank"
@@ -515,6 +584,7 @@ export default function Portfolio() {
               Facebook
               <ArrowUpRight size={16} />
             </a>
+
             <a
               href="https://www.tiktok.com/@usrnotfound32"
               target="_blank"
@@ -527,15 +597,21 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+
       {/* FOOTER */}
+
       <footer className="footer">
         <strong>
           Iky<span>.</span>
         </strong>
-        <p>Designed & built with curiosity.</p>
+
+        <p>Designed &amp; built with curiosity.</p>
+
         <span>© 2026</span>
       </footer>
+
       {/* AI BUTTON */}
+
       {!aiOpen && (
         <button
           className="ai-floating-button"
@@ -546,20 +622,25 @@ export default function Portfolio() {
           <span>Ask Iky AI</span>
         </button>
       )}
+
       {/* AI PANEL */}
+
       {aiOpen && (
         <div className="ai-panel">
           <div className="ai-header">
             <div className="ai-title">
               <div className="ai-orb">✦</div>
+
               <div>
                 <strong>Iky Assistant</strong>
+
                 <small>
                   <span className="status-dot" />
                   Online
                 </small>
               </div>
             </div>
+
             <button
               className="ai-close"
               onClick={() => setAiOpen(false)}
@@ -568,6 +649,7 @@ export default function Portfolio() {
               <X size={20} />
             </button>
           </div>
+
           <div className="ai-messages">
             {messages.map((message, index) => (
               <div
@@ -581,16 +663,20 @@ export default function Portfolio() {
                 {message.content}
               </div>
             ))}
+
             {loading && (
               <div className="ai-message assistant">
                 Thinking...
               </div>
             )}
           </div>
+
           <div className="ai-input-wrap">
             <input
               value={input}
-              onChange={(event) => setInput(event.target.value)}
+              onChange={(event) =>
+                setInput(event.target.value)
+              }
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
                   sendMessage();
@@ -598,6 +684,7 @@ export default function Portfolio() {
               }}
               placeholder="Ask me anything..."
             />
+
             <button
               onClick={sendMessage}
               disabled={loading}
