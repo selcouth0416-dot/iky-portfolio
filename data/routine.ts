@@ -13,11 +13,30 @@ export type RoutineData = {
 
 export const defaultRoutine: RoutineData = {
   title: "Daily Routine",
-  description: "A curated collection of tracks that keep me in the zone and inspired while working.",
+  description:
+    "Small habits, simple routines, and the things that keep my day moving.",
   cover: "/assets/routine/cover.jpg",
+
   tracks: [
-    { title: "Track One", artist: "Add your artist", file: "/assets/routine/track-1.mp3" },
-    { title: "Track Two", artist: "Add your artist", file: "/assets/routine/track-2.mp3" },
-    { title: "Track Three", artist: "Add your artist", file: "/assets/routine/track-3.mp3" },
+    {
+      title: "Morning Gym & Start the Day",
+      artist: "Morning Routine",
+      file: "/assets/routine/track-1.mp3",
+    },
+    {
+      title: "Work & Build",
+      artist: "Work Routine",
+      file: "/assets/routine/track-2.mp3",
+    },
+    {
+      title: "Learning & Reading",
+      artist: "Learning Routine",
+      file: "/assets/routine/track-3.mp3",
+    },
+    {
+      title: "Relax & Reset",
+      artist: "Night Routine",
+      file: "/assets/routine/track-4.mp3",
+    },
   ],
 };
