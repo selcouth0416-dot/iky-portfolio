@@ -30,10 +30,10 @@ const experience = [
 ];
 const technologies = [
   { name: "React", type: "Frontend", symbol: "react" },
-  { name: "Next.js", type: "Frontend", symbol: "nextjs" },
+  { name: "Next.js", type: "Frontend", symbol: "next" },
   { name: "Tailwind CSS", type: "Frontend", symbol: "tailwind" },
   { name: "TypeScript", type: "Frontend", symbol: "typescript" },
-  { name: "Node.js", type: "Backend", symbol: "nodejs" },
+  { name: "Node.js", type: "Backend", symbol: "node" },
   { name: "Express.js", type: "Backend", symbol: "express" },
   { name: "MySQL", type: "Database", symbol: "mysql" },
   { name: "MongoDB", type: "Database", symbol: "mongodb" },
