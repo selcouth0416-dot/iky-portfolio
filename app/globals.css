@@ -1536,10 +1536,11 @@ img {
   }
 }
 
-/* Profile Image */
 .profile-image-animate {
-  animation: profileReveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: 0.25s;
+  animation:
+    profileReveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) both,
+    profileFloat 6s ease-in-out 1.2s infinite;
+  animation-delay: 0.25s, 1.2s;
 }
 
 @keyframes profileReveal {
@@ -1554,25 +1555,13 @@ img {
   }
 }
 
-/* Image Hover */
-.work-card img,
-.routine-card img {
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-}
+@keyframes profileFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
-.work-card:hover img,
-.routine-card:hover img {
-  transform: scale(1.06);
-}
-
-/* Tech Icon Floating */
-.tech-card svg,
-.tech-card img {
-  transition:
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.tech-card:hover svg,
-.tech-card:hover img {
-  transform: translateY(-5px) scale(1.08);
+  50% {
+    transform: translateY(-8px);
+  }
 }
